@@ -3,7 +3,7 @@ package edu.isu.cs.cs3308.structures;
 /**
  * Stack ADT Interface
  *
- * A Stack is a linear datastructure which provides access to only the first
+ * A Stack is a linear data structure which provides access to only the first
  * item in the structure. This provides a Last In First Out (LIFO) semantic to
  * its operation.
  *
