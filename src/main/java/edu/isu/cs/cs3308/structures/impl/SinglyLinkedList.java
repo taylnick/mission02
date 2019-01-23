@@ -2,7 +2,13 @@ package edu.isu.cs.cs3308.structures.impl;
 
 import edu.isu.cs.cs3308.structures.List;
 
-public class DoublyLinkedList<E> implements List<E> {
+/**
+ * Singly Linked List to track inputs of scores
+ * @author NNTaylor
+ * @param <E> element type
+ */
+
+public class SinglyLinkedList<E> implements List<E> {
 
     protected Node<E> head;
     protected Node<E> tail;
@@ -46,10 +52,10 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         else{
             tail.setNextNode(newNode);
-            newNode.setPrevNode(tail);
             tail = newNode;
             size++;
         }
+
     }
 
     /**
@@ -70,11 +76,9 @@ public class DoublyLinkedList<E> implements List<E> {
             return;
         }
         newNode.setNextNode(head);
-        head.setPrevNode(newNode);
         head = newNode;
         size++;
     }
-
 
     /**
      * removes the head node and moves head pointer.
@@ -91,12 +95,10 @@ public class DoublyLinkedList<E> implements List<E> {
             head = null;
             tail = null;
             tempNode.setNextNode(null);
-            tempNode.setPrevNode(null);
             size --;
             return removedData;
         }
         head = head.getNextNode();
-        head.setPrevNode(null);
         tempNode.setNextNode(null);
         size --;
 
@@ -115,10 +117,15 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         E removedData = tail.getData();
 
-        tail = tail.getPrevNode();
-        tail.getNextNode().setPrevNode(null);
-        tail.setNextNode(null);
+        Node<E> currentNode = head;
+        Node<E> temp = head;
+        while(currentNode != null){
+            temp = currentNode;
+            currentNode = currentNode.getNextNode();
+        }
+        tail = temp;
         size--;
+
         return removedData;
     }
 
@@ -140,8 +147,6 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
         newNode.setNextNode(currentNode.getNextNode());
-        newNode.getNextNode().setPrevNode(newNode);
-        newNode.setPrevNode(currentNode);
         currentNode.setNextNode(newNode);
         size++;
 
@@ -162,19 +167,8 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         Node<E> nodeToRemove = currentNode.getNextNode();
         E dataToRemove = nodeToRemove.getData();
-
-        if(nodeToRemove == tail){
-            nodeToRemove.getPrevNode().setNextNode(null);
-            tail = nodeToRemove.getPrevNode();
-            nodeToRemove.setPrevNode(null);
-            size--;
-            return dataToRemove;
-        }
-
         currentNode.setNextNode(nodeToRemove.getNextNode());
-        nodeToRemove.getNextNode().setPrevNode(currentNode);
         nodeToRemove.setNextNode(null);
-        nodeToRemove.setPrevNode(null);
         size--;
 
         return dataToRemove;
