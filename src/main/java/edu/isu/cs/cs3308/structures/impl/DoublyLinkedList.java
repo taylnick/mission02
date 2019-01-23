@@ -62,8 +62,7 @@ public class DoublyLinkedList<E> implements List<E> {
 
         Node<E> newNode = new Node<>(element);
 
-        if(isEmpty()){
-            newNode.setNextNode(null);
+        if(this.size() == 0){
             head = newNode;
             tail = newNode;
             size++;
@@ -96,8 +95,8 @@ public class DoublyLinkedList<E> implements List<E> {
             return removedData;
         }
         head = head.getNextNode();
-        head.setPrevNode(null);
         tempNode.setNextNode(null);
+        head.setPrevNode(null);
         size --;
 
         return removedData;
